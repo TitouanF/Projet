@@ -9,14 +9,10 @@ class Visiteur extends CI_Controller {
       $this->load->library("pagination");
       $this->load->model('ModeleProduit'); // chargement modèle, obligatoire
    } // __construct
-   public function AfficherLesCategories() // lister tous les articles
+   public function AfficherLaPage() // lister tous les articles
    {
-      $DonneesInjectees['lesCategories'] = $this->ModeleClient->AfficherLesCategories();
-      $this->load->view('client/index', $DonneesInjectees);
-    }
-   public function AfficherLesProduits() // lister tous les articles
-   {
-      $DonneesInjectees['lesProduits'] = $this->ModeleClient->AfficherLesProduits();
+      $DonneesInjectees['lesCategories'] = $this->ModeleProduit->AfficherLesCategories();
+      $DonneesInjectees['lesProduits'] = $this->ModeleProduit->AfficherLesProduits();
       $this->load->view('client/index', $DonneesInjectees);
     }
     public function AjouterUnProduit()

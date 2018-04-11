@@ -6,9 +6,14 @@ class ModeleProduit extends CI_Model
     $this->load->database();
     /* chargement database.php (dans config), obligatoirement dans le constructeur */
     }
-    public function retournerproduit()
+    public function RetournerProduit()
     {
       $requete = $this->db->get('produit');
+      return $requete->result_array();
+    }
+    public function RetournerCategorie()
+    {
+      $requete = $this->db->get('categorie');
       return $requete->result_array();
     }
     public function insererUnProduit($pDonneesAInserer)
