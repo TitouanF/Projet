@@ -21,4 +21,4 @@ class ModeleProduit extends CI_Model
      return $this->db->insert('produit', $pDonneesAInserer);
      } // insererUnArticle
  }
-}
+?>

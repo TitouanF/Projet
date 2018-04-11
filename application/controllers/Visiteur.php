@@ -5,17 +5,19 @@ class Visiteur extends CI_Controller {
    {
       parent::__construct();
       $this->load->helper('url');
-      $this->load->helper('assets'); // helper 'assets' ajouté a Application
+      $this->load->helper('assets');
       $this->load->library("pagination");
       $this->load->model('ModeleProduit'); // chargement modèle, obligatoire
    } // __construct
    public function AfficherLaPage() // lister tous les articles
    {
-      $DonneesInjectees['lesCategories'] = $this->ModeleProduit->AfficherLesCategories();
-      $DonneesInjectees['lesProduits'] = $this->ModeleProduit->AfficherLesProduits();
-      $this->load->view('client/index', $DonneesInjectees);
+
+      $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+      $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduit();
+      $this->load->view('Visiteurs/index', $DonneesInjectees);
+
     }
-    public function AjouterUnProduit()
+    public function AjouterUnProduitAModifier()
     {
       $this->load->helper('form');
       $this->load->library('form_validation');

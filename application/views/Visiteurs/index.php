@@ -57,10 +57,10 @@
 
           <h1 class="my-4">Shop Name</h1>
           <div class="list-group">
-            <?php foreach ($lesCategories as $uneCategorie):
-            <a href="#" class="list-group-item">$uneCategorie['NOCATEGORIE'],$uneCategorie['LIBELLE']</a>
+            <?php foreach ($lesCategories as $uneCategorie): ?>
+            <a href="#" class="list-group-item"><?php $uneCategorie['NOCATEGORIE'] + $uneCategorie['LIBELLE'] ?></a>
             </div>
-            ?>
+           <?php endforeach ?>
         </div>
         <!-- /.col-lg-3 -->
 
