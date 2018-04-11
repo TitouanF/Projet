@@ -15,7 +15,7 @@ class Visiteur extends CI_Controller {
       $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
       $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduit();
       $this->load->view('Visiteurs/index', $DonneesInjectees);
-
+      $this->load->view('template/baspage');
     }
     public function AjouterUnProduitAModifier()
     {
