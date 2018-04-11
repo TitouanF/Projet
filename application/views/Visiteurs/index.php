@@ -11,11 +11,10 @@
     <title>Bienvenue dans la boutique</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="<?php echo css_url("bootstrap.min");?>">
     <!-- Custom styles for this template -->
-    <link href="css/shop-homepage.css" rel="stylesheet">
-
+    <link href="<?php echo css_url("shop-homepage");?>">
   </head>
 
   <body>
