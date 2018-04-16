@@ -47,7 +47,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherLaPage#">Accueil</a></li>
-        <li><a href="#">Voir tous les produits</a></li>
+        <li><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherTousLesArticles#">Voir tous les produits</a></li>
         <li><a href="#">Voir le panier</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

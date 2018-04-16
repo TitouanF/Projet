@@ -22,7 +22,7 @@ class Visiteur extends CI_Controller {
      $this->load->view('template/entete');
        $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
        $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduit();
-       $this->load->view('Visiteurs/index', $DonneesInjectees);
+       $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
        $this->load->view('template/baspage');
      }
     public function AjouterUnProduitAModifier()
