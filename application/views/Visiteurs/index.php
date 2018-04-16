@@ -14,7 +14,7 @@
      echo' <div class="carousel-inner" role="listbox">';
     foreach ($lesProduits as $unproduit):
      echo $id ;
-       echo img($unproduit['NOMIMAGE']);
+       echo img($unproduit['NOMIMAGECAROUSEL']);
         echo '<div class="carousel-caption">';
          echo ' <h3>'.$unproduit['LIBELLE'].'</h3>';
          echo ' <p>'.$unproduit['DETAIL'].'</p></div> </div>';
