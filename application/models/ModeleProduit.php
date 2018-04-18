@@ -6,10 +6,15 @@ class ModeleProduit extends CI_Model
     $this->load->database();
     /* chargement database.php (dans config), obligatoirement dans le constructeur */
     }
-    public function RetournerProduit()
+    public function RetournerProduit($pNoProduit = FALSE)
     {
-      $requete = $this->db->get('produit');
-      return $requete->result_array();
+      if ($pNoProduit === FALSE) // pas de n° d'article en paramètre
+            { 
+                $requete = $this->db->get('produit');
+                return $requete->result_array();
+            }
+      $requete = $this->db->get_where('produit', array('NOPRODUIT' => $pNoProduit));
+      return $requete->row_array();
     }
     public function RetournerCategorie()
     {

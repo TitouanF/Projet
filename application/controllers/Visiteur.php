@@ -95,17 +95,17 @@ class Visiteur extends CI_Controller {
         $this->session->sess_destroy();
         redirect('Visiteur/AfficherLaPage');
     }
-    public function voirUnArticle($noArticle = NULL) // valeur par défaut de noArticle = NULL
+    public function VoirUnProduit($noArticle = NULL) // valeur par défaut de noArticle = NULL
     {
-      $DonneesInjectees['unArticle'] = $this->ModeleProduit->retournerArticles($noArticle);
-      if (empty($DonneesInjectees['unArticle']))
+      $DonneesInjectees['unProduit'] = $this->ModeleProduit->RetournerProduit($noArticle);
+      if (empty($DonneesInjectees['unProduit']))
       {   // pas d'article correspondant au n°
           show_404();
       }
-      $DonneesInjectees['TitreDeLaPage'] = $DonneesInjectees['unArticle']['cTitre'];
+      $DonneesInjectees['TitreDeLaPage'] = $DonneesInjectees['unProduit']['LIBELLE'];
       // ci-dessus, entrée ['cTitre'] de l'entrée ['unArticle'] de $DonneesInjectees
       $this->load->view('template/entete');
-      $this->load->view('visiteur/VoirUnProduit', $DonneesInjectees);
+      $this->load->view('visiteurs/VoirUnProduit', $DonneesInjectees);
       $this->load->view('template/baspage');
     }
   }

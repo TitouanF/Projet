@@ -1,7 +1,12 @@
 <?php
-echo '<h2>'.$unArticle['LIBELLE'].'</h2>';
-echo $unArticle['DETAIL'];
-echo '<p>'.img($unArticle['NOMIMAGE']).'<p>'; // Affiche directement l'image
-// Nota Bene : img_url($unArticle['cNomFichierImage']) aurait retourne l'url de l'image (cf. assets)
+$prixttc = $unProduit['PRIXHT'] + ($unProduit['PRIXHT'] * $unProduit['TAUXTVA']/100);
+echo '<div><p>'.img($unProduit['NOMIMAGE']).'<p></div>';
+echo '<div><h2>'.$unProduit['LIBELLE'].'</h2>';
+echo $unProduit['DETAIL']. '</div>';
+echo 'Stock du produit : ' .$unProduit['QUANTITEENSTOCK'];
+echo ' <br>Prix Unitaire : ' .$prixttc. ' euros </br>' ;
+
+
 echo '<p>'.anchor('Visiteur/AfficherTousLesArticles#','Retour à la liste des articles').'</p>';
+
 ?>
