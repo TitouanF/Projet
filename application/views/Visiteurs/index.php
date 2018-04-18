@@ -10,8 +10,9 @@
     <!-- Wrapper for slides -->
     
     <?php
-    $id = '<div class="item active">';
+    
      echo' <div class="carousel-inner" role="listbox">';
+     $id = '<div class="item active">';
     foreach ($lesProduits as $unproduit):
      echo $id ;
        echo img($unproduit['NOMIMAGECAROUSEL']);
@@ -20,7 +21,6 @@
          echo ' <p>'.$unproduit['DETAIL'].'</p></div> </div>';
         $id = '<div class="item">';
     endforeach ?>  
-    
       </div>
 
     <!-- Left and right controls -->
