@@ -51,6 +51,7 @@ class Client extends CI_Controller
             {
                 if ($this->session->statut =='client')
                     {
+                        
                     }
                 else
                     {
