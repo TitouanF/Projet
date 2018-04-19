@@ -22,15 +22,6 @@
       margin: auto;
       min-height:200px;
   }
-  B {
-    color : ForestGreen;
-  }
-  /* Hide the carousel text when the screen is less than 600 pixels wide */
-  @media (max-width: 600px) {
-    .carousel-caption {
-      display: none; 
-    }
-
   }
     </style>
   </head>
@@ -47,17 +38,14 @@
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherLaPage#">Accueil</a></li>
-          <li><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherTousLesArticles#">Voir tous les produits</a></li>
-          <li><a href="#">Voir le panier</a></li>
+        <li class="active"><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherLaPage#">Accueil <span class="glyphicon glyphicon-home"></a></li>
+          <li><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherTousLesArticles#"> Voir tous les produits <span class="glyphicon glyphicon-th-list"></a></li>
+          <li><a href="http://127.0.0.1/projet/index.php/Client/VoirPanier">Voir le panier <span class="glyphicon glyphicon-shopping-cart"></span></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
         <?php if (!is_null($this->session->identifiant)) : ?>
-       <?php echo '<B>Utilisateur connecté : </B> <B>'.$this->session->identifiant.'</B>&nbsp;&nbsp;';?>
-       <a href="<?php echo site_url('Visiteur/seDeconnecter') ?>">Se déconnecter</a>&nbsp;&nbsp;
-       <?php if ($this->session->statut==1) : ?>
-          <a href="<?php echo site_url('administrateur/ajouterUnArticle') ?>">Ajouter un article</a>&nbsp;&nbsp;
-       <?php endif; ?>
+        <li><a> <?php echo '<B>Utilisateur connecté : </B> <B>'.$this->session->identifiant.'</B>&nbsp;&nbsp;';?> </a></li>
+        <li><a href="<?php echo site_url('Visiteur/seDeconnecter') ?>">Se déconnecter <span class="glyphicon glyphicon-log-out">&nbsp;&nbsp;</a></li>
        <?php else : ?>
           <li><a href="http://127.0.0.1/projet/index.php/Visiteur/seConnecter#"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
        <?php endif; ?>

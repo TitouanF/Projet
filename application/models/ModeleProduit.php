@@ -25,5 +25,13 @@ class ModeleProduit extends CI_Model
     {
      return $this->db->insert('produit', $pDonneesAInserer);
      } // insererUnArticle
+     public function AjouterCommande($pDonneesAInserer)
+    {
+     return $this->db->insert('commande', $pDonneesAInserer);
+     } 
+     public function AjouterLigne($pDonneesAInserer)
+    {
+     return $this->db->insert('ligne', $pDonneesAInserer);
+     } 
  }
 ?>

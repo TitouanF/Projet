@@ -25,28 +25,6 @@ class Visiteur extends CI_Controller {
        $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
        $this->load->view('template/baspage');
      }
-    public function AjouterUnProduitAModifier()
-    {
-      $this->load->helper('form');
-      $this->load->library('form_validation');
-      $DonneesInjectees['TitreDeLaPage'] = 'Ajouter un article';
-      $this->form_validation->set_rules('txtprenom', 'prenom', 'required');
-      $this->form_validation->set_rules('txtnom', 'nom', 'required');
-      if ($this->form_validation->run() === FALSE)
-        {   // formulaire non validé, on renvoie le formulaire
-          $this->load->view('client/AjouterUnClient', $DonneesInjectees);
-        }
-      else
-        {
-          $donneesAInserer = array(
-        'prenomclient' => $this->input->post('txtprenom'),
-        'nomclient' => $this->input->post('txtnom'),
-          ); // cTitre, cTexte, cNomFichierImage : champs de la table tabarticle
-          $this->ModeleClient->insererUnClient($donneesAInserer); // appel du modèle
-          $this->load->helper('url'); // helper chargé pour utilisation de site_url (dans la vue)
-          $this->load->view('client/insertionReussie');
-        }
-    }
     public function seConnecter()
       {
         $this->load->model('ModeleUtilisateur');

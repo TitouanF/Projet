@@ -15,7 +15,7 @@
      $id = '<div class="item active">';
     foreach ($lesProduits as $unproduit):
      echo $id ;
-       echo img($unproduit['NOMIMAGECAROUSEL']);
+     echo anchor('Visiteur/VoirUnProduit/'.$unproduit['NOPRODUIT'],img($unproduit['NOMIMAGECAROUSEL']));
         echo '<div class="carousel-caption">';
          echo ' <h3>'.$unproduit['LIBELLE'].'</h3>';
          echo ' <p>'.$unproduit['DETAIL'].'</p></div> </div>';
