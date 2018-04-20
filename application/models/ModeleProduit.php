@@ -21,6 +21,11 @@ class ModeleProduit extends CI_Model
       $requete = $this->db->get('categorie');
       return $requete->result_array();
     }
+    public function RetournerMarque()
+    {
+      $requete = $this->db->get('marque');
+      return $requete->result_array();
+    }
     public function insererUnProduit($pDonneesAInserer)
     {
      return $this->db->insert('produit', $pDonneesAInserer);

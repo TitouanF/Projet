@@ -7,5 +7,5 @@
               echo'<p>'.anchor('Visiteur/VoirUnProduit/'.$unproduit['NOPRODUIT'],$unproduit['LIBELLE']).'</p>';
               echo'</div>';
             endforeach ?>
-    </div>
+   </div>
 </div>
