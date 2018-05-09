@@ -1,17 +1,21 @@
 <h2><?php echo $TitreDeLaPage ?> </h2>
 <style>
+textarea{
+			width: 15em;
+			height: 3em;
+}
     </style>
 <?php
 $select = 'selected';
-echo form_open('Administrateur/AjouterUnProduitHTML5');
-echo '<b> Selectionnez une marque : </b> <select id="txtCategorie"> ';
+echo form_open('Administrateur/AjouterUnProduit');
+echo '<b> Selectionnez une marque : </b> <select name="txtNoMarque"> ';
 foreach ($lesMarques as $UneMarque) :
    echo '<option value="'.$UneMarque['NOMARQUE'].'" '. $select .'> '.$UneMarque['NOM'].' </option>';
 $select = '';
 endforeach ;
 echo '</select><BR>';
 
-echo '<b> Selectionnez une catégorie : </b> <select id="txtCategorie"> ';
+echo '<b> Selectionnez une catégorie : </b> <select name="txtCategorie"> ';
 foreach ($lesCategories as $UneCategorie) :
    echo '<option value="'.$UneCategorie['NOCATEGORIE'].'" '. $select .'> '.$UneCategorie['LIBELLE'].' </option>';
 $select = '';
@@ -36,17 +40,20 @@ echo form_input('txtTVA','',array('[0-9]*','required' =>'required','title' => 'S
 echo form_label("Nom du fichier image du produit : ",'lblNomImage');
 echo form_input('txtNomImage','',array('required' => 'Saisir le nom du fichier image')).'<BR>';
 
+echo form_label("Nom du fichier image du produit pour le carousel : ",'lblNomImageCarousel');
+echo form_input('txtNomImageCarousel','',array('required' => 'Saisir le nom du fichier image pour le carousel')).'<BR>';
 
 echo form_label("Quantitée en stock : ",'lblQuantite');
 echo form_input('txtQuantite','',array('[0-9]*','required' =>'required','title' => 'Saisir des nombres uniquement')).'<BR>';
 
+echo '<b> Selectionnez une catégorie : </b> <select name="txtDisponible">';
+echo '<option value="1" selected> Oui </option>';
+echo '<option value="0"> Non </option>';
+echo '</select><BR>';
 
-echo form_label("Disponible (1/0) : ",'lblDisponible');
-echo form_input('txtDisponible','',array('[0-9]*','required' =>'required','title' => 'Saisir des nombres uniquement')).'<BR>';
 
 
-echo form_label("Nom du fichier image du produit pour le carousel : ",'lblNomImageCarousel');
-echo form_input('txtNomImageCarousel','',array('required' => 'Saisir le nom du fichier image pour le carousel')).'<BR>';
+
 
 
 

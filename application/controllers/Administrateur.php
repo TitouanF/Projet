@@ -34,7 +34,7 @@ class Administrateur extends CI_Controller
                                 'DISPONIBLE' => $this->input->post('txtDisponible'),
                                 'NOMIMAGECAROUSEL' => $this->input->post('txtNomImageCarousel'),
                             );
-                            $this->modeleProduit->insererUnProduit($DonneesAInserer);
+                            $this->ModeleProduit->insererUnProduit($DonneesAInserer);
                             $this->load->helper('url');
                             $this->load->view('Administrateur/insertionReussie');
 
