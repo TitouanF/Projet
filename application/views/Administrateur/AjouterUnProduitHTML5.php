@@ -46,7 +46,7 @@ echo form_input('txtNomImageCarousel','',array('required' => 'Saisir le nom du f
 echo form_label("Quantitée en stock : ",'lblQuantite');
 echo form_input('txtQuantite','',array('[0-9]*','required' =>'required','title' => 'Saisir des nombres uniquement')).'<BR>';
 
-echo '<b> Selectionnez une catégorie : </b> <select name="txtDisponible">';
+echo '<b> Produit disponible ? : </b> <select name="txtDisponible">';
 echo '<option value="1" selected> Oui </option>';
 echo '<option value="0"> Non </option>';
 echo '</select><BR>';
