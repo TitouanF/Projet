@@ -8,6 +8,7 @@ class Visiteur extends CI_Controller {
       $this->load->helper('assets');
       $this->load->library("pagination");
       $this->load->model('ModeleProduit'); // chargement modèle, obligatoire
+      $this->load->model('ModeleUtilisateur');
    } // __construct
    public function AfficherLaPage() // lister tous les articles
    {
@@ -86,4 +87,43 @@ class Visiteur extends CI_Controller {
       $this->load->view('visiteurs/VoirUnProduit', $DonneesInjectees);
       $this->load->view('template/baspage');
     }
+    public function InscriptionDuClient()
+    {
+        if (is_null($this->session->identifiant)) 
+          {
+                    $this->load->helper('form');
+                    $DonneesInjectees['TitreDeLaPage'] = 'Inscription';
+                      if ($this->input->post('boutonAjouter')) // On test si le formulaire a été posté.
+                        {
+                            // le bouton 'submit', boutonAjouter est <> de NULL, on a posté quelque chose.
+                            $DonneesAInserer = array(
+                                'NOCLIENT' => NULL,
+                                'NOM' => $this->input->post('txtNom'),
+                                'PRENOM' => $this->input->post('txtPrenom'),
+                                'ADRESSE' => $this->input->post('txtAdresse'),
+                                'VILLE' => $this->input->post('txtVille'),
+                                'CODEPOSTAL' => $this->input->post('txtCP'),
+                                'EMAIL' => $this->input->post('txtEmail'),
+                                'MOTDEPASSE' => $this->input->post('txtMotDePasse'),
+                                'PROFIL' => 'client'
+
+                            );
+                            $this->ModeleUtilisateur->AjouterNouveauClient($DonneesAInserer);
+                            $this->load->helper('url');
+                            $this->load->view('Visiteurs/InscriptionReussie');
+
+                        }
+                      else
+                        {
+                            $this->load->view('template/Entete');
+                            $this->load->view('Visiteurs/InscriptionClient', $DonneesInjectees);
+                            $this->load->view('template/baspage');
+                        }
+                 }
+                else
+                 {
+                   redirect('Visiteur/AfficherLaPage');
+                 }
+
+        }
   }

@@ -17,4 +17,8 @@ class ModeleUtilisateur extends CI_Model
             return $requete->row(); // retour d'une seule ligne !
             // retour sous forme d'objets
         } // retournerUtilisateur
+     public function AjouterNouveauClient($pDonneesAInserer)
+        {
+         return $this->db->insert('client', $pDonneesAInserer);
+        }
 }

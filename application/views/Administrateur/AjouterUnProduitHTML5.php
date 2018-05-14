@@ -1,9 +1,10 @@
 <h2><?php echo $TitreDeLaPage ?> </h2>
 <style>
-textarea{
+textarea
+    {
 			width: 15em;
 			height: 3em;
-}
+    }
     </style>
 <?php
 $select = 'selected';
@@ -50,14 +51,6 @@ echo '<b> Produit disponible ? : </b> <select name="txtDisponible">';
 echo '<option value="1" selected> Oui </option>';
 echo '<option value="0"> Non </option>';
 echo '</select><BR>';
-
-
-
-
-
-
-
-
 
 echo form_submit('boutonAjouter','Ajouter un article').'<BR>';
 echo form_close();

@@ -9,14 +9,19 @@ class Administrateur extends CI_Controller
       $this->load->helper('assets');
       $this->load->library("pagination");
       $this->load->model('ModeleProduit'); // chargement modèle, obligatoire
+      $this->load->helper('form');
+   }
+   public function ChangerInfosProduits()
+   {
+       
+
    }
    public function AjouterUnProduit()
     {
         if (!is_null($this->session->identifiant)) : 
             {   
                 if ($this->session->statut =='admin')
-                 {
-                    $this->load->helper('form');
+                 {                   
                     $DonneesInjectees['TitreDeLaPage'] = 'Ajouter un article';
                       if ($this->input->post('boutonAjouter')) // On test si le formulaire a été posté.
                         {

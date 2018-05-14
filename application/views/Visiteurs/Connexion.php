@@ -11,3 +11,4 @@
     echo form_submit('submit', 'Se connecter');
     echo form_close();
 ?>
+<p><a href="<?php echo site_url('Visiteur/InscriptionDuClient') ?>">Pas encore inscrit ? Inscrivez vous</a></p>

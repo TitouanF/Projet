@@ -10,7 +10,7 @@ class ModeleProduit extends CI_Model
     {
       if ($pNoProduit === FALSE) // pas de n° d'article en paramètre
             { 
-                $requete = $this->db->get('produit');
+                $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
                 return $requete->result_array();
             }
       $requete = $this->db->get_where('produit', array('NOPRODUIT' => $pNoProduit));
