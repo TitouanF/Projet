@@ -10,8 +10,12 @@ if (!is_null($this->session->identifiant)) :
     {   
         if ($this->session->statut =='client')
          {
-             echo 'Quantitée à commander :  <input type="number" value="0" min ="0" max="'.$unProduit['QUANTITEENSTOCK'].'" name="nombreproduits" size="1"/>';
+             echo form_open("Client/AjouterProduitPanier");
+             echo '<input type="hidden" name="produit_id" value="'.$unProduit['NOPRODUIT'].'"/>';
+             echo '<input type="hidden" name="prix" value="'.$prixttc.'"/>';
+             echo '<input type="hidden" name="nom" value="'.$unProduit['LIBELLE'].'"';
              echo '<br> <input type="submit" name="valid" value="Ajouter au panier"/>';
+             echo form_close();
          }
         if ($this->session->statut =='admin')
          {
@@ -23,6 +27,7 @@ if (!is_null($this->session->identifiant)) :
             echo '<option value="0"> Non </option>';
             echo '</select></BR>';
             echo '<br> <input type="submit" name="valid" value="Effectuer les changements"/>';
+            echo form_close();
          }
     }
 endif;
