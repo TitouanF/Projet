@@ -24,8 +24,11 @@
                         </tr>
                     <?php echo form_close();?>
                     <?php endforeach;?>
-                </table>
+                 
+                </table>              
                 <div> <?php echo $this->cart->total();?> Euros </div>
+                
+                <input type="submit" value="Valider commande"/>
                 <div><a href="<?php echo site_url('Client/ViderPanier');?>"> Vider le panier</a></div>
                 <?php else:?>
                 <p> Aucun article dans le panier </p>

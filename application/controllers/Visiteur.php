@@ -12,20 +12,28 @@ class Visiteur extends CI_Controller {
    } // __construct
    public function AfficherLaPage() // lister tous les articles
    {
-      $this->load->view('template/entete');
-      $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+    $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+    $this->load->view('template/entete',$DonneesInjectees);  
       $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduit();
       $this->load->view('Visiteurs/index', $DonneesInjectees);
       $this->load->view('template/baspage');
     }
     public function AfficherTousLesArticles() // lister tous les articles
-    {
-       $this->load->view('template/entete');
-       $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+    { 
+      $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+       $this->load->view('template/entete',$DonneesInjectees);  
        $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduit();
        $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
        $this->load->view('template/baspage');
      }
+     public function AfficherProduitCategorie($Categorie = null) // lister tous les articles
+     { 
+       $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+        $this->load->view('template/entete',$DonneesInjectees);  
+        $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduitParCategorie($Categorie);
+        $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
+        $this->load->view('template/baspage');
+      }
     public function seConnecter()
       {
         $this->load->model('ModeleUtilisateur');
@@ -39,7 +47,8 @@ class Visiteur extends CI_Controller {
         if ($this->form_validation->run() === FALSE)
           {  // échec de la validation
               // cas pour le premier appel de la méthode : formulaire non encore appelé
-              $this->load->view('template/entete');
+              $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+               $this->load->view('template/entete',$DonneesInjectees);  
               $this->load->view('Visiteurs/Connexion', $DonneesInjectees); // on renvoie le formulaire
               $this->load->view('template/baspage');
           }
@@ -55,16 +64,19 @@ class Visiteur extends CI_Controller {
                 {    // on a trouvé, identifiant et statut (droit) sont stockés en session
                     $this->load->library('session');
                     $this->session->identifiant = $UtilisateurRetourne->EMAIL;
+                    $this->session->motdepasse = $UtilisateurRetourne->MOTDEPASSE;
                     $this->session->statut = $UtilisateurRetourne->PROFIL;
                     $DonneesInjectees['EMAIL'] = $Utilisateur['EMAIL'];
-                    $this->load->view('template/entete');
+                    $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+                    $this->load->view('template/entete',$DonneesInjectees);  
                     $this->load->view('Visiteurs/ConnexionReussie', $DonneesInjectees);
                     $this->load->view('template/baspage');
                 }
               else
                 {    
                   // utilisateur non trouvé on renvoie le formulaire de connexion
-                    $this->load->view('template/entete');
+                  $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+                  $this->load->view('template/entete',$DonneesInjectees);  
                     $this->load->view('Visiteurs/Connexion', $DonneesInjectees);
                     $this->load->view('template/baspage');
                 }  
@@ -83,7 +95,8 @@ class Visiteur extends CI_Controller {
       }
       $DonneesInjectees['TitreDeLaPage'] = $DonneesInjectees['unProduit']['LIBELLE'];
       // ci-dessus, entrée ['cTitre'] de l'entrée ['unArticle'] de $DonneesInjectees
-      $this->load->view('template/entete');
+      $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+      $this->load->view('template/entete',$DonneesInjectees);  
       $this->load->view('visiteurs/VoirUnProduit', $DonneesInjectees);
       $this->load->view('template/baspage');
     }
@@ -115,7 +128,8 @@ class Visiteur extends CI_Controller {
                         }
                       else
                         {
-                            $this->load->view('template/Entete');
+                          $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+                          $this->load->view('template/entete',$DonneesInjectees);  
                             $this->load->view('Visiteurs/InscriptionClient', $DonneesInjectees);
                             $this->load->view('template/baspage');
                         }

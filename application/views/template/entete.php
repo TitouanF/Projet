@@ -22,7 +22,26 @@
       margin: auto;
       min-height:200px;
   }
-  }
+  .dropdown:hover {
+            background-color: #454545;
+            color: white;
+        }
+ 
+        .dropdown-menu .sub-menu {
+            left: 100%;
+            position: absolute;
+            top: -4px;
+            visibility: hidden;
+            margin-top: 0;
+        }
+ 
+        .dropdown-menu li:hover .sub-menu {
+            visibility: visible;
+        }
+ 
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
     </style>
   </head>
   <body>
@@ -60,10 +79,33 @@
               }
             endif;
             ?>
+               <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+               </span>  Voir par catégorie <span class="glyphicon glyphicon-file"> <b class="caret"> </b></a>
+               <ul class="dropdown-menu">
+                <li class="dropdown dropdown-submenu">
+                <?php foreach ($lesCategories as $uneCategorie):
+                                echo'<li><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherProduitCategorie/'.$uneCategorie['NOCATEGORIE'].'" class="dropdown-toggle" data-toggle="dropdown">'.$uneCategorie['LIBELLE'].'</a></li>'; 
+                      //LIEN PAS ENCORE CLIQUABLE A REPARER
+                      endforeach
+                ?>
+                </li>
+               </ul>
+               </li>
+                                
         </ul>
+     
         <ul class="nav navbar-nav navbar-right">
-        <?php if (!is_null($this->session->identifiant)) : ?>
-        <li><a> <?php echo '<B>Utilisateur connecté : </B> <B>'.$this->session->identifiant.'</B>&nbsp;&nbsp;';?> </a></li>
+        <?php if (!is_null($this->session->identifiant)) :
+        if (!is_null($this->session->identifiant)) : 
+              {
+                if ($this->session->statut =='client')
+                    {
+                      echo '<li><a href="http://127.0.0.1/projet/index.php/Client/VoirPanier">Modifier informations compte <span class="glyphicon glyphicon-user"></span></a></li>';
+                    }
+              }
+        endif
+              ?>
+        <li><a> <?php echo '<B>Utilisateur : </B> <B>'.$this->session->identifiant.'</B>&nbsp;&nbsp;';?> </a></li>
         <li><a href="<?php echo site_url('Visiteur/seDeconnecter') ?>">Se déconnecter <span class="glyphicon glyphicon-log-out">&nbsp;&nbsp;</a></li>
        <?php else : ?>
           <li><a href="http://127.0.0.1/projet/index.php/Visiteur/seConnecter#"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>

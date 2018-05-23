@@ -16,6 +16,16 @@ class ModeleProduit extends CI_Model
       $requete = $this->db->get_where('produit', array('NOPRODUIT' => $pNoProduit));
       return $requete->row_array();
     }
+    public function RetournerProduitParCategorie($NoCategorie = FALSE)
+    {
+      if ($NoCategorie === FALSE) // pas de n° d'article en paramètre
+            { 
+                $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
+                return $requete->result_array();
+            }
+            $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1,'NOCATEGORIE'=>$NoCategorie));
+            return $requete->result_array();
+    }
     public function RetournerCategorie()
     {
       $requete = $this->db->get('categorie');

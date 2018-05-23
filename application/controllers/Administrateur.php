@@ -46,7 +46,8 @@ class Administrateur extends CI_Controller
                         }
                       else
                         {
-                            $this->load->view('template/Entete');
+                            $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+                    $this->load->view('template/entete',$DonneesInjectees);  
                             $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
                             $DonneesInjectees['lesMarques'] = $this->ModeleProduit->RetournerMarque();
                             $this->load->view('Administrateur/AjouterUnProduitHTML5', $DonneesInjectees);

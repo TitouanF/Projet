@@ -17,6 +17,12 @@ class ModeleUtilisateur extends CI_Model
             return $requete->row(); // retour d'une seule ligne !
             // retour sous forme d'objets
         } // retournerUtilisateur
+        public function retournerInfosUtilisateur($adresseMail,$motDePasse)
+        {
+            $requete = $this->db->get_where('client', array('EMAIL' => $adresseMail,'MOTDEPASSE'=>$motDePasse));
+            return $requete->row(); // retour d'une seule ligne !
+            // retour sous forme d'objets
+        } 
      public function AjouterNouveauClient($pDonneesAInserer)
         {
          return $this->db->insert('client', $pDonneesAInserer);
