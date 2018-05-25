@@ -3,7 +3,7 @@
     echo validation_errors(); // mise en place de la validation
     /* set_value : en cas de non validation les données déjà
     saisies sont réinjectées dans le formulaire */
-    echo form_open('visiteur/seconnecter');
+    echo form_open('visiteur/seConnecter');
     echo form_label('Email','txtEMAIL'); // creation d'un label devant la zone de saisie
     echo form_input('txtEMAIL', set_value('txtEMAIL'));
     echo form_label('Mot de passe','txtMotDePasse');

@@ -72,42 +72,31 @@ class Client extends CI_Controller
     if (!is_null($this->session->identifiant)) 
     {
               $this->load->helper('form');
-              $DonneesInjectees['TitreDeLaPage'] = 'Inscription';
-                if ($this->input->post('boutonAjouter')) // On test si le formulaire a été posté.
+              $DonneesInjectees['TitreDeLaPage'] = 'Modification infos';
+                if ($this->input->post('boutonModifier')) // On test si le formulaire a été posté.
                   {
                       // le bouton 'submit', boutonAjouter est <> de NULL, on a posté quelque chose.
-                      $donneesAModifier = array(
-                          'NOCLIENT' => NULL,
+                      $infosAModifier = array(                       
                           'NOM' => $this->input->post('txtNom'),
                           'PRENOM' => $this->input->post('txtPrenom'),
                           'ADRESSE' => $this->input->post('txtAdresse'),
                           'VILLE' => $this->input->post('txtVille'),
                           'CODEPOSTAL' => $this->input->post('txtCP'),
                           'EMAIL' => $this->input->post('txtEmail'),
-                          'MOTDEPASSE' => $this->input->post('txtMotDePasse'),
-                          'PROFIL' => 'client'
-
+                          'MOTDEPASSE' => $this->input->post('txtMotDePasse'),                      
                       );
-                      $this->ModeleUtilisateur->AjouterNouveauClient($donneesAModifier);
+                      $this->ModeleUtilisateur->ModifierInfosActuelles($infosAModifier);
                       $this->load->helper('url');
-                      $this->load->view('Visiteurs/InscriptionReussie');
-
+                      $this->load->view('Clients/modificationReussie');
                   }
                 else
                   {
                       $mail = $this->session->identifiant;
                       $motdepasse = $this->session->motdepasse;
-                    $utilisateurRetourner =  $this->ModeleUtilisateur->retournerInfosUtilisateur($mail,$motdepasse);
-                    $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
-                    $this->load->view('template/entete',$DonneesInjectees);
-                    $DonneesInjectees['NOCLIENT'] = $utilisateurRetourner->NOCLIENT;
-                    $DonneesInjectees['NOM'] = $utilisateurRetourner->NOM;
-                    $DonneesInjectees['PRENOM'] = $utilisateurRetourner->PRENOM;
-                    $DonneesInjectees['ADRESSE'] = $utilisateurRetourner->ADRESSE;
-                    $DonneesInjectees['VILLE'] = $utilisateurRetourner->VILLE;
-                    $DonneesInjectees['CODEPOSTAL'] = $utilisateurRetourner->CODEPOSTAL;
-                    $DonneesInjectees['EMAIL'] = $utilisateurRetourner->EMAIL;
-                    $DonneesInjectees['MOTDEPASSE'] = $utilisateurRetourner->MOTDEPASSE;
+                      $DonneesInjectees['utilisateurRetourner'] =   $this->ModeleUtilisateur->retournerInfosUtilisateur($mail,$motdepasse);
+                      $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+                      $this->load->view('template/entete',$DonneesInjectees);                     
+                      //var_dump($DonneesInjectees['utilisateurRetourner']);
                       $this->load->view('Clients/ModifierInfosClients', $DonneesInjectees);
                       $this->load->view('template/baspage');
                   }

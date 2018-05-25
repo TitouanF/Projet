@@ -7,8 +7,10 @@
               echo anchor('Visiteur/VoirUnProduit/'.$unproduit['NOPRODUIT'],img($unproduit['NOMIMAGE']));
               echo'<p>'.anchor('Visiteur/VoirUnProduit/'.$unproduit['NOPRODUIT'],$unproduit['LIBELLE']).'</p>';
               echo'</div>';
-            endforeach ?>
+            endforeach ?>     
    </div>
-   <div>
+   <?php foreach($lesDates as $uneDate):
+          echo '<p>' .anchor('Visiteur/AfficherProduitParDate/'.$uneDate['DATEAJOUT'],'produits du '.$uneDate['DATEAJOUT']).'</p>';       
+         endforeach ?>
   </div>
-</div>
+  

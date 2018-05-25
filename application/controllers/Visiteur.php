@@ -20,17 +20,38 @@ class Visiteur extends CI_Controller {
     }
     public function AfficherTousLesArticles() // lister tous les articles
     { 
+      $DonneesInjectees['lesDates'] = $this->ModeleProduit->RetournerDate();
       $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
        $this->load->view('template/entete',$DonneesInjectees);  
        $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduit();
        $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
        $this->load->view('template/baspage');
      }
+     public function AfficherProduitRechercher($recherche = null) // lister tous les articles
+     { 
+       $recherche = $this->input->post('txtRechercher');
+       $DonneesInjectees['lesDates'] = $this->ModeleProduit->RetournerDate();
+       $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+        $this->load->view('template/entete',$DonneesInjectees);  
+        $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduitRechercher($recherche);     
+        $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
+        $this->load->view('template/baspage');
+      }
      public function AfficherProduitCategorie($Categorie = null) // lister tous les articles
      { 
+      $DonneesInjectees['lesDates'] = $this->ModeleProduit->RetournerDate();
        $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
         $this->load->view('template/entete',$DonneesInjectees);  
         $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduitParCategorie($Categorie);
+        $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
+        $this->load->view('template/baspage');
+      }
+      public function AfficherProduitParDate($Date = null) // lister tous les articles
+     { 
+      $DonneesInjectees['lesDates'] = $this->ModeleProduit->RetournerDate();
+       $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+        $this->load->view('template/entete',$DonneesInjectees);  
+        $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduitParDate($Date);
         $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
         $this->load->view('template/baspage');
       }
@@ -63,6 +84,7 @@ class Visiteur extends CI_Controller {
               if (!($UtilisateurRetourne == null))
                 {    // on a trouvé, identifiant et statut (droit) sont stockés en session
                     $this->load->library('session');
+                    $this->session->noClient = $UtilisateurRetourne->NOCLIENT;
                     $this->session->identifiant = $UtilisateurRetourne->EMAIL;
                     $this->session->motdepasse = $UtilisateurRetourne->MOTDEPASSE;
                     $this->session->statut = $UtilisateurRetourne->PROFIL;
@@ -86,20 +108,48 @@ class Visiteur extends CI_Controller {
         $this->session->sess_destroy();
         redirect('Visiteur/AfficherLaPage');
     }
+
     public function VoirUnProduit($noArticle = NULL) // valeur par défaut de noArticle = NULL
     {
+      $this->load->helper('form');
       $DonneesInjectees['unProduit'] = $this->ModeleProduit->RetournerProduit($noArticle);
-      if (empty($DonneesInjectees['unProduit']))
-      {   // pas d'article correspondant au n°
-          show_404();
+      if ($this->input->post('boutonModifier')) // On test si le formulaire a été posté.
+      {
+          // le bouton 'submit', boutonAjouter est <> de NULL, on a posté quelque chose.
+          $infosAModifier = array(                       
+              'NOCATEGORIE' => $this->input->post('txtCategorie'),
+              'NOMARQUE' => $this->input->post('txtMarque'),
+              'NOPRODUIT' => $this->input->post('txtNoProduit'),
+              'LIBELLE' => $this->input->post('txtLibelle'),
+              'DETAIL' => $this->input->post('txtDetail'),
+              'PRIXHT' => $this->input->post('nouveauPrix'),
+              'TAUXTVA' => $this->input->post('nouveauTauxTVA'),    
+              'NOMIMAGE' => $this->input->post('txtNomImage'),  
+              'NOMIMAGECAROUSEL' => $this->input->post('txtNomImageCarousel'),  
+              'QUANTITEENSTOCK' => $this->input->post('nouvelleQuantitee'),
+              'DISPONIBLE' => $this->input->post('txtDisponible'),              
+          );
+          $this->ModeleProduit->ModifierInfosProduits($infosAModifier);
+          $this->load->helper('url');
+          $this->load->view('Clients/modificationReussie');
       }
+      else
+      {
+      $DonneesInjectees['lesMarques'] = $this->ModeleProduit->RetournerMarque();
       $DonneesInjectees['TitreDeLaPage'] = $DonneesInjectees['unProduit']['LIBELLE'];
       // ci-dessus, entrée ['cTitre'] de l'entrée ['unArticle'] de $DonneesInjectees
       $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
       $this->load->view('template/entete',$DonneesInjectees);  
-      $this->load->view('visiteurs/VoirUnProduit', $DonneesInjectees);
+      $this->load->view('Visiteurs/VoirUnProduit', $DonneesInjectees);
       $this->load->view('template/baspage');
     }
+  }
+
+
+
+
+
+
     public function InscriptionDuClient()
     {
         if (is_null($this->session->identifiant)) 

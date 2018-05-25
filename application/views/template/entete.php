@@ -42,6 +42,7 @@
         .dropdown:hover .dropdown-menu {
             display: block;
         }
+        }
     </style>
   </head>
   <body>
@@ -69,6 +70,7 @@
               }
             endif;
             ?>
+            
             <?php
             if (!is_null($this->session->identifiant)) : 
               {
@@ -84,14 +86,20 @@
                <ul class="dropdown-menu">
                 <li class="dropdown dropdown-submenu">
                 <?php foreach ($lesCategories as $uneCategorie):
-                                echo'<li><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherProduitCategorie/'.$uneCategorie['NOCATEGORIE'].'" class="dropdown-toggle" data-toggle="dropdown">'.$uneCategorie['LIBELLE'].'</a></li>'; 
-                      //LIEN PAS ENCORE CLIQUABLE A REPARER
+                                echo'<li>' .anchor('Visiteur/AfficherProduitCategorie/'.$uneCategorie['NOCATEGORIE'],$uneCategorie['LIBELLE']).'" class="dropdown-toggle" data-toggle="dropdown"></a></li>'; 
+                   
                       endforeach
                 ?>
                 </li>
                </ul>
                </li>
-                                
+               <?php echo form_open('Visiteur/AfficherProduitRechercher', array('class' => 'navbar-form navbar-left')); ?>
+               <div class="form-group">
+                 <input name="txtRechercher" type="text" class="form-control" placeholder="Recherche">
+                 <?php echo form_close();?>
+                </div>
+
+               
         </ul>
      
         <ul class="nav navbar-nav navbar-right">
@@ -100,12 +108,12 @@
               {
                 if ($this->session->statut =='client')
                     {
-                      echo '<li><a href="http://127.0.0.1/projet/index.php/Client/VoirPanier">Modifier informations compte <span class="glyphicon glyphicon-user"></span></a></li>';
+                      echo '<li><a href="http://127.0.0.1/projet/index.php/Client/ModifierClient">Modifier informations compte <span class="glyphicon glyphicon-user"></span></a></li>';
                     }
               }
         endif
               ?>
-        <li><a> <?php echo '<B>Utilisateur : </B> <B>'.$this->session->identifiant.'</B>&nbsp;&nbsp;';?> </a></li>
+        <li><a> <?php echo '<B>Utilisateur : </B> <B>'.$this->session->identifiant.' </B>&nbsp;&nbsp;';?> </a></li>
         <li><a href="<?php echo site_url('Visiteur/seDeconnecter') ?>">Se déconnecter <span class="glyphicon glyphicon-log-out">&nbsp;&nbsp;</a></li>
        <?php else : ?>
           <li><a href="http://127.0.0.1/projet/index.php/Visiteur/seConnecter#"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
