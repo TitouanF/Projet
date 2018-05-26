@@ -60,6 +60,7 @@
         <ul class="nav navbar-nav">
         <li class="active"><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherLaPage#">Accueil <span class="glyphicon glyphicon-home"></a></li>
           <li><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherTousLesArticles#"> Voir tous les produits <span class="glyphicon glyphicon-th-list"></a></li>
+          <li><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherLesProduitsAvecPagination"> Voir produits avec pagination <span class="glyphicon glyphicon-th-list"></a></li>
             <?php
             if (!is_null($this->session->identifiant)) : 
               {

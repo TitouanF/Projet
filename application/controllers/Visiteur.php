@@ -27,6 +27,34 @@ class Visiteur extends CI_Controller {
        $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
        $this->load->view('template/baspage');
      }
+     public function AfficherLesProduitsAvecPagination()
+     {
+        // les noms des entrées dans $config doivent être respectés
+        $config = array();    
+        $config["base_url"] = site_url('Visiteur/AfficherLesProduitsAvecPagination');    
+        $config["total_rows"] = $this->ModeleProduit->nombreDArticles();    
+        $config["per_page"] = 2; // nombre d'articles par page    
+        $config["uri_segment"] = 3; /* le n° de la page sera placé sur le segment n°3 de URI,   
+        pour la page 4 on aura : visiteur/listerLesArticlesAvecPagination/4   */  
+        $config['first_link'] = 'Premier'; 
+        $config['last_link'] = 'Dernier';  
+        $config['next_link'] = 'Suivant';    
+        $config['prev_link'] = 'Précédent';
+
+        $this->pagination->initialize($config);
+        $noPage = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $DonneesInjectees['TitreDeLaPage'] = 'Les produits, avec pagination';
+        $DonneesInjectees["lesProduits"] = $this->ModeleProduit->retournerArticlesLimite($config["per_page"], $noPage);
+        $DonneesInjectees["liensPagination"] = $this->pagination->create_links();
+        $recherche = $this->input->post('txtRechercher');
+       $DonneesInjectees['lesDates'] = $this->ModeleProduit->RetournerDate();
+       $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+        $this->load->view('template/entete',$DonneesInjectees);   
+        $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
+        $this->load->view('template/baspage');
+     
+      
+     }
      public function AfficherProduitRechercher($recherche = null) // lister tous les articles
      { 
        $recherche = $this->input->post('txtRechercher');
