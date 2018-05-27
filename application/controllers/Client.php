@@ -10,7 +10,24 @@ class Client extends CI_Controller
       $this->load->library("pagination");
       $this->load->model('ModeleProduit'); // chargement modèle, obligatoire
       $this->load->model('ModeleUtilisateur');
+      if (!is_null($this->session->identifiant)) : 
+        { 
+            if ($this->session->statut =='client')
+            {  
+             }
+            else
+            {
+            redirect('Visiteur/AfficherLaPage');
+            }
+        }
+        else :
+        {
+            redirect('Visiteur/seConnecter');
+        }
+        endif ;
    }
+
+
    public function AjouterProduitPanier()
    {
        $data = array(
@@ -23,6 +40,8 @@ class Client extends CI_Controller
        $this->cart->insert($data);
        redirect("Client/VoirPanier");
    }
+
+
    public function update()
    {
        $data = array(
@@ -32,6 +51,8 @@ class Client extends CI_Controller
        $this->cart->update($data);
        redirect($_SERVER['HTTP_REFERER']);
    }
+
+
    public function supprimer()
    {
         $data = array(
@@ -41,36 +62,26 @@ class Client extends CI_Controller
         $this->cart->update($data);
         redirect($_SERVER['HTTP_REFERER']);
    }
+
+
    public function ViderPanier()
    {
        $this->cart->destroy();
        redirect($_SERVER['HTTP_REFERER']);
    }
+
+
    public function VoirPanier()
    {
-    if (!is_null($this->session->identifiant))
-    {
-        if ($this->session->statut =='client')
-        {
             $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
-                    $this->load->view('template/entete',$DonneesInjectees);  
+            $this->load->view('template/entete',$DonneesInjectees);  
             $this->load->view('Clients/Panier');
             $this->load->view('template/baspage');
-        }
-      else
-      {
-        redirect('Visiteur/AfficherLaPage');
-      }
-    }
-    else
-    {
-        redirect('Visiteur/seConnecter');
-    }
    }
+
+
    public function ModifierClient()
    {
-    if (!is_null($this->session->identifiant)) 
-    {
               $this->load->helper('form');
               $DonneesInjectees['TitreDeLaPage'] = 'Modification infos';
                 if ($this->input->post('boutonModifier')) // On test si le formulaire a été posté.
@@ -100,29 +111,29 @@ class Client extends CI_Controller
                       $this->load->view('Clients/ModifierInfosClients', $DonneesInjectees);
                       $this->load->view('template/baspage');
                   }
-     }
-    else
-    {
-        redirect('Visiteur/AfficherLaPage');
-    }
-
   }
    
-   public function ValiderPanier()
+   public function AjouterCommande()
    {
-    $DonneesAInserer = array(
-        'NOCATEGORIE' => $this->input->post('txtCategorie'),
-        'NOMARQUE' => $this->input->post('txtNoMarque'),
-        'LIBELLE' => $this->input->post('txtLibelle'),
-        'DETAIL' => $this->input->post('txtDetail'),
-        'PRIXHT' => $this->input->post('txtPrixHT'),
-        'TAUXTVA' => $this->input->post('txtTVA'),
-        'NOMIMAGE' => $this->input->post('txtNomImage'),
-        'QUANTITEENSTOCK' => $this->input->post('txtQuantite'),
-        'DATEAJOUT' => date("Y-m-d"), //changer pour que la date soit prise auto
-        'DISPONIBLE' => $this->input->post('txtDisponible'),
-        'NOMIMAGECAROUSEL' => $this->input->post('txtNomImageCarousel'),
-    );
+            $DonneesAInserer = array(
+                'NOCOMMANDE' => null,
+                'NOCLIENT' => $this->session->noClient,
+                'DATECOMMANDE' => date("Y-m-d"), //changer pour que la date soit prise auto
+                'DATETRAITEMENT' => NULL,
+                'TRAITEE' => 0,        
+            );
+            $this->ModeleProduit->AjouterCommande($DonneesAInserer);
+            $noCommande = $this->ModeleProduit->retournerIdDerniereCommande();
+            foreach ($this->cart->contents() as $Produit):
+                $DonneesInserer = array('NOCOMMANDE' => $noCommande['MAX(NOCOMMANDE)'], 'NOPRODUIT' => $Produit['id'], 'QUANTITECOMMANDEE' => $Produit['qty']);
+                $this->ModeleProduit->AjouterLigne($DonneesInserer);
+            endforeach;
+            $this->cart->destroy();
+            $this->load->helper('url');
+            redirect('Visiteur/AfficherTousLesArticles');
    }
+   
+
+
    
 }

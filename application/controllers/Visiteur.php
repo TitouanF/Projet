@@ -174,10 +174,6 @@ class Visiteur extends CI_Controller {
   }
 
 
-
-
-
-
     public function InscriptionDuClient()
     {
         if (is_null($this->session->identifiant)) 
