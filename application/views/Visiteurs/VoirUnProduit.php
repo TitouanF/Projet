@@ -24,22 +24,22 @@
                     echo form_open('Visiteur/VoirUnProduit');
                     $select = $unProduit['NOCATEGORIE'];
                     echo '<b> Selectionnez une catégorie : </b> <select name="txtCategorie"> ';
-                    foreach ($lesCategories as $UneCategorie) :
-                        echo '<option value="'.$UneCategorie['NOCATEGORIE'].'"';
-                        if ($UneCategorie['NOCATEGORIE'] == $unProduit['NOCATEGORIE']) :
-                            echo 'selected' ;
-                        endif; 
-                        echo '> '.$UneCategorie['LIBELLE'].' </option>';
-                    endforeach ;
+                        foreach ($lesCategories as $UneCategorie) :
+                            echo '<option value="'.$UneCategorie['NOCATEGORIE'].'"';
+                                if ($UneCategorie['NOCATEGORIE'] == $unProduit['NOCATEGORIE']) :
+                                    echo 'selected' ;
+                                endif; 
+                            echo '> '.$UneCategorie['LIBELLE'].' </option>';
+                        endforeach ;
                     echo '</select><BR>';
                     echo '<b> Selectionnez une marque : </b> <select name="txtMarque"> ';
-                    foreach ($lesMarques as $UneMarque) :
-                        echo '<option value="'.$UneCategorie['NOMARQUE'].'"';
-                        if ($UneMarque['NOMARQUE'] == $unProduit['NOMARQUE']) :
-                             echo 'selected' ;
-                        endif; 
-                        echo '> '.$UneMarque['NOM'].' </option>';
-                    endforeach ;
+                        foreach ($lesMarques as $UneMarque) :
+                            echo '<option value="'.$UneCategorie['NOMARQUE'].'"';
+                                if ($UneMarque['NOMARQUE'] == $unProduit['NOMARQUE']) :
+                                    echo 'selected' ;
+                                endif; 
+                            echo '> '.$UneMarque['NOM'].' </option>';
+                        endforeach ;
                     echo '</select><BR>';    
 
                     echo form_label("Numero produit : ",'lblNoProduit');
