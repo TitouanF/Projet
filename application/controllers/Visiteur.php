@@ -73,84 +73,84 @@ class Visiteur extends CI_Controller {
       }
      
      
-      public function AfficherProduitCategorie($Categorie = null) // lister tous les articles
-        { 
-          $DonneesInjectees['lesDates'] = $this->ModeleProduit->RetournerDate();
-          $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
-          $this->load->view('template/entete',$DonneesInjectees);  
-          $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduitParCategorie($Categorie);
-          $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
-          $this->load->view('template/baspage');
-        }
-     
-     
-      public function AfficherProduitParDate($Date = null) // lister tous les articles
-        { 
-          $DonneesInjectees['lesDates'] = $this->ModeleProduit->RetournerDate();
-          $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
-          $this->load->view('template/entete',$DonneesInjectees);  
-          $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduitParDate($Date);
-          $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
-          $this->load->view('template/baspage');
-        }
-   
-   
-      public function seConnecter()
-        {
-          $this->load->model('ModeleUtilisateur');
-          $this->load->helper('form');
-          $this->load->library('form_validation');
-          $DonneesInjectees['TitreDeLaPage'] = 'Se connecter';
-          $this->form_validation->set_rules('txtEMAIL', 'Email', 'required');
-          $this->form_validation->set_rules('txtMotDePasse', 'Mot de passe', 'required');
-          // Les champs txtIdentifiant et txtMotDePasse sont requis
-          // Si txtMotDePasse non renseigné envoi de la chaine 'Mot de passe' requis
-            if ($this->form_validation->run() === FALSE)
-              {  // échec de la validation
-                  // cas pour le premier appel de la méthode : formulaire non encore appelé
-                  $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
-                  $this->load->view('template/entete',$DonneesInjectees);  
-                  $this->load->view('Visiteurs/Connexion', $DonneesInjectees); // on renvoie le formulaire
-                  $this->load->view('template/baspage');
-              }
-            else
-              {  // formulaire validé
-                $Utilisateur = array( // cIdentifiant, cMotDePasse : champs de la table tabutilisateur
-                  'EMAIL' => $this->input->post('txtEMAIL'),
-                  'MOTDEPASSE' => $this->input->post('txtMotDePasse'),
-                ); // on récupère les données du formulaire de connexion
-                // on va chercher l'utilisateur correspondant aux Id et MdPasse saisis
-                $UtilisateurRetourne = $this->ModeleUtilisateur->retournerUtilisateur($Utilisateur);
-                  if (!($UtilisateurRetourne == null))
-                    {    // on a trouvé, identifiant et statut (droit) sont stockés en session
-                        $this->load->library('session');
-                        $this->session->noClient = $UtilisateurRetourne->NOCLIENT;
-                        $this->session->identifiant = $UtilisateurRetourne->EMAIL;
-                        $this->session->motdepasse = $UtilisateurRetourne->MOTDEPASSE;
-                        $this->session->statut = $UtilisateurRetourne->PROFIL;
-                        $DonneesInjectees['EMAIL'] = $Utilisateur['EMAIL'];
-                        $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
-                        $this->load->view('template/entete',$DonneesInjectees);  
-                        $this->load->view('Visiteurs/ConnexionReussie', $DonneesInjectees);
-                        $this->load->view('template/baspage');
-                    }
-                  else
-                    {    
-                      // utilisateur non trouvé on renvoie le formulaire de connexion
+    public function AfficherProduitCategorie($Categorie = null) // lister tous les articles
+      { 
+        $DonneesInjectees['lesDates'] = $this->ModeleProduit->RetournerDate();
+        $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+        $this->load->view('template/entete',$DonneesInjectees);  
+        $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduitParCategorie($Categorie);
+        $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
+        $this->load->view('template/baspage');
+      }
+    
+    
+    public function AfficherProduitParDate($Date = null) // lister tous les articles
+      { 
+        $DonneesInjectees['lesDates'] = $this->ModeleProduit->RetournerDate();
+        $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+        $this->load->view('template/entete',$DonneesInjectees);  
+        $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduitParDate($Date);
+        $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
+        $this->load->view('template/baspage');
+      }
+  
+  
+    public function seConnecter()
+      {
+        $this->load->model('ModeleUtilisateur');
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $DonneesInjectees['TitreDeLaPage'] = 'Se connecter';
+        $this->form_validation->set_rules('txtEMAIL', 'Email', 'required');
+        $this->form_validation->set_rules('txtMotDePasse', 'Mot de passe', 'required');
+        // Les champs txtIdentifiant et txtMotDePasse sont requis
+        // Si txtMotDePasse non renseigné envoi de la chaine 'Mot de passe' requis
+          if ($this->form_validation->run() === FALSE)
+            {  // échec de la validation
+                // cas pour le premier appel de la méthode : formulaire non encore appelé
+                $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+                $this->load->view('template/entete',$DonneesInjectees);  
+                $this->load->view('Visiteurs/Connexion', $DonneesInjectees); // on renvoie le formulaire
+                $this->load->view('template/baspage');
+            }
+          else
+            {  // formulaire validé
+              $Utilisateur = array( // cIdentifiant, cMotDePasse : champs de la table tabutilisateur
+                'EMAIL' => $this->input->post('txtEMAIL'),
+                'MOTDEPASSE' => $this->input->post('txtMotDePasse'),
+              ); // on récupère les données du formulaire de connexion
+              // on va chercher l'utilisateur correspondant aux Id et MdPasse saisis
+              $UtilisateurRetourne = $this->ModeleUtilisateur->retournerUtilisateur($Utilisateur);
+                if (!($UtilisateurRetourne == null))
+                  {    // on a trouvé, identifiant et statut (droit) sont stockés en session
+                      $this->load->library('session');
+                      $this->session->noClient = $UtilisateurRetourne->NOCLIENT;
+                      $this->session->identifiant = $UtilisateurRetourne->EMAIL;
+                      $this->session->motdepasse = $UtilisateurRetourne->MOTDEPASSE;
+                      $this->session->statut = $UtilisateurRetourne->PROFIL;
+                      $DonneesInjectees['EMAIL'] = $Utilisateur['EMAIL'];
                       $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
                       $this->load->view('template/entete',$DonneesInjectees);  
-                        $this->load->view('Visiteurs/Connexion', $DonneesInjectees);
-                        $this->load->view('template/baspage');
-                    }  
-                }
-        }
+                      $this->load->view('Visiteurs/ConnexionReussie', $DonneesInjectees);
+                      $this->load->view('template/baspage');
+                  }
+                else
+                  {    
+                    // utilisateur non trouvé on renvoie le formulaire de connexion
+                    $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+                    $this->load->view('template/entete',$DonneesInjectees);  
+                      $this->load->view('Visiteurs/Connexion', $DonneesInjectees);
+                      $this->load->view('template/baspage');
+                  }  
+              }
+    }
      
      
-      public function seDeConnecter() 
-        { // destruction de la session = déconnexion
-          $this->session->sess_destroy();
-          redirect('Visiteur/AfficherLaPage');
-        }
+    public function seDeConnecter() 
+      { // destruction de la session = déconnexion
+        $this->session->sess_destroy();
+        redirect('Visiteur/AfficherLaPage');
+      }
 
      
     public function VoirUnProduit($noArticle = NULL) // valeur par défaut de noArticle = NULL

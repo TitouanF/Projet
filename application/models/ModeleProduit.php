@@ -10,34 +10,34 @@ class ModeleProduit extends CI_Model
 
     public function ProduitLePlusCommander()
         {
-            $requete = $this->db->query('select produit.NOPRODUIT, NOMARQUE, NOCATEGORIE, SUM(QUANTITECOMMANDEE) from commande, ligne, produit where ligne.NOPRODUIT = produit.NOPRODUIT and commande.NOCOMMANDE	= ligne.NOCOMMANDE group by produit.NOPRODUIT' );          
-            $laMeilleureVente = "";
-            foreach($requete->result_array() as $uneLigne):
-                $i = 0;
-                if ($laMeilleureVente == "")
-                {
-                    $laMeilleureVente = $uneLigne;
-                }
-                else
-                {
-                    if($laMeilleureVente['SUM(QUANTITECOMMANDEE)'] < $uneLigne['SUM(QUANTITECOMMANDEE)'])
-                    {
-                        $laMeilleureVente = $uneLigne;
-                    }
-                }
-            endforeach;
-            $MeilleureVente = $this->ModeleArticle->retournerProduit($laMeilleureVente['NOPRODUIT']);
-            return $MeilleureVente;
+          $requete = $this->db->query('select produit.NOPRODUIT, NOMARQUE, NOCATEGORIE, SUM(QUANTITECOMMANDEE) from commande, ligne, produit where ligne.NOPRODUIT = produit.NOPRODUIT and commande.NOCOMMANDE	= ligne.NOCOMMANDE group by produit.NOPRODUIT' );          
+          $laMeilleureVente = "";
+          foreach($requete->result_array() as $uneLigne):
+              $i = 0;
+              if ($laMeilleureVente == "")
+              {
+                  $laMeilleureVente = $uneLigne;
+              }
+              else
+              {
+                  if($laMeilleureVente['SUM(QUANTITECOMMANDEE)'] < $uneLigne['SUM(QUANTITECOMMANDEE)'])
+                  {
+                      $laMeilleureVente = $uneLigne;
+                  }
+              }
+          endforeach;
+          $MeilleureVente = $this->ModeleArticle->retournerProduit($laMeilleureVente['NOPRODUIT']);
+          return $MeilleureVente;
         }
 
 
     public function RetournerProduit($pNoProduit = FALSE)
       {
         if ($pNoProduit === FALSE) // pas de n° d'article en paramètre
-              { 
-                  $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
-                  return $requete->result_array();
-              }
+          { 
+              $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
+              return $requete->result_array();
+          }
         $requete = $this->db->get_where('produit', array('NOPRODUIT' => $pNoProduit));
         return $requete->row_array();
       }
@@ -52,7 +52,7 @@ class ModeleProduit extends CI_Model
             return $requete->result_array();
           } // fin if
         return false;
-     }
+      }
 
 
     public function nombreDArticles() 
@@ -64,10 +64,10 @@ class ModeleProduit extends CI_Model
     public function RetournerProduitParCategorie($NoCategorie = FALSE)
       {
         if ($NoCategorie === FALSE) // pas de n° d'article en paramètre
-              { 
-                  $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
-                  return $requete->result_array();
-              }
+          { 
+              $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
+              return $requete->result_array();
+          }
         $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1,'NOCATEGORIE'=>$NoCategorie));
         return $requete->result_array();
       }
@@ -77,8 +77,8 @@ class ModeleProduit extends CI_Model
       {
         if ($Date === FALSE) // pas de n° d'article en paramètre
           { 
-              $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
-              return $requete->result_array();
+            $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
+            return $requete->result_array();
           }
         $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1,'DATEAJOUT'=>$Date));
         return $requete->result_array();
@@ -89,8 +89,8 @@ class ModeleProduit extends CI_Model
       {
         if ($recherche === FALSE) // pas de n° d'article en paramètre
           { 
-              $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
-              return $requete->result_array();
+            $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
+            return $requete->result_array();
           }
         $this->db->select('*');
         $this->db->from('produit');
