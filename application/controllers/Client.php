@@ -116,7 +116,7 @@ class Client extends CI_Controller
                 $DonneesAInserer = array(
                     'NOCOMMANDE' => null,
                     'NOCLIENT' => $this->session->noClient,
-                    'DATECOMMANDE' => date("Y-m-d"), //changer pour que la date soit prise auto
+                    'DATECOMMANDE' => date("Y-m-d H:i:s"), //changer pour que la date soit prise auto
                     'DATETRAITEMENT' => NULL,
                     'TRAITEE' => 0,        
                 );

@@ -1,9 +1,15 @@
+<style>
+    table, th, td 
+        {
+            border: 1px solid black;
+        }
+</style>
 <div>
     <div>
         <div> 
             <?php echo $this->cart->total_items();?> articles
             <?php if($this->cart->contents()):?>
-                    <table>
+                    <table style="width:50%">
                         <tr>
                             <th> Article</th>
                             <th>Prix</th>

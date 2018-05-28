@@ -7,30 +7,6 @@ class ModeleProduit extends CI_Model
         /* chargement database.php (dans config), obligatoirement dans le constructeur */
       }
 
-
-    public function ProduitLePlusCommander()
-        {
-          $requete = $this->db->query('select produit.NOPRODUIT, NOMARQUE, NOCATEGORIE, SUM(QUANTITECOMMANDEE) from commande, ligne, produit where ligne.NOPRODUIT = produit.NOPRODUIT and commande.NOCOMMANDE	= ligne.NOCOMMANDE group by produit.NOPRODUIT' );          
-          $laMeilleureVente = "";
-          foreach($requete->result_array() as $uneLigne):
-              $i = 0;
-              if ($laMeilleureVente == "")
-              {
-                  $laMeilleureVente = $uneLigne;
-              }
-              else
-              {
-                  if($laMeilleureVente['SUM(QUANTITECOMMANDEE)'] < $uneLigne['SUM(QUANTITECOMMANDEE)'])
-                  {
-                      $laMeilleureVente = $uneLigne;
-                  }
-              }
-          endforeach;
-          $MeilleureVente = $this->ModeleArticle->retournerProduit($laMeilleureVente['NOPRODUIT']);
-          return $MeilleureVente;
-        }
-
-
     public function RetournerProduit($pNoProduit = FALSE)
       {
         if ($pNoProduit === FALSE) // pas de n° d'article en paramètre
@@ -109,14 +85,17 @@ class ModeleProduit extends CI_Model
 
     public function RetournerCommande()
       {
-        $requete = $this->db->get('Commande');
+        $requete = $this->db->get_where('Commande', array('TRAITEE'=> 0));
         return $requete->result_array();
       }
 
-    public function RetournerLigne()
+    public function RetournerLigne($noCommande = FALSE)
       {
-        $requete = $this->db->get('ligne');
+        if ($noCommande != FALSE)
+        {
+          $requete = $this->db->query('select ligne.noproduit,produit.LIBELLE,ligne.QUANTITECOMMANDEE,produit.PRIXHT,produit.TAUXTVA from ligne,produit where ligne.noproduit = produit.noproduit and ligne.NOCOMMANDE ='.$noCommande);
         return $requete->result_array();
+        }      
       }
 
     public function RetournerMarque()
@@ -166,6 +145,11 @@ class ModeleProduit extends CI_Model
         $requete = $this->db->query('select MAX(NOCOMMANDE) from commande');
         return $requete->row_array();
       }
+    public function changerQuantiteEnStock($pNoProduit,$pQuantitee)
+    {
+      $requete = $this->db->query('UPDATE produit SET QUANTITEENSTOCK = QUANTITEENSTOCK - '.$pQuantitee.' where NOPRODUIT ='.$pNoProduit);
+      $this->db->update($requete);
+    }
 
  }
 ?>

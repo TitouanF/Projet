@@ -35,26 +35,5 @@
   
 <div class="container text-center">    
   <h3>Que vendons-nous </h3><br>
-  <!-- retirer !-->
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="item">
-        <img src="<?php echo img_url($LeMeilleurProduit['NOMIMAGE']); ?>" alt="<?php echo $LeMeilleurProduit['LIBELLE']; ?>">
-          <p><?php echo $LeMeilleurProduit['LIBELLE']; ?></p>
-      </div>      
-    </div>
-    <div class="col-sm-4"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Project 2</p>    
-    </div>
-    <div class="col-sm-4">
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-    </div>
-  </div>
 </div><br>
 </body>

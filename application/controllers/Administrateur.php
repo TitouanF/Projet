@@ -28,16 +28,17 @@ class Administrateur extends CI_Controller
    }
 
    
-        public function AfficherCommandesNonTraitees()
+        public function AfficherCommandesNonTraitees($noCommande = NULL)
         {
             $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
             $this->load->view('template/entete',$DonneesInjectees);  
             $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
             $DonneesInjectees['lesCommandes'] = $this->ModeleProduit->RetournerCommande();
-            $DonneesInjectees['lesLignes'] = $this->ModeleProduit->RetournerLigne();
+            $noCommande = $this->input->post('txtNoCommande');
+            $DonneesInjectees['noCommande'] = $noCommande;
+            $DonneesInjectees['lesLignes'] = $this->ModeleProduit->RetournerLigne($noCommande);
             $this->load->view('Administrateur/VoirCommandesNonTraitees',$DonneesInjectees);
             $this->load->view('template/baspage');
-
         }
 
 
