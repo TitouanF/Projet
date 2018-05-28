@@ -40,7 +40,18 @@ class Administrateur extends CI_Controller
             $this->load->view('Administrateur/VoirCommandesNonTraitees',$DonneesInjectees);
             $this->load->view('template/baspage');
         }
-
+        public function ValiderCommande($noCommande = NULL)
+        {
+            $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+            $this->load->view('template/entete',$DonneesInjectees);  
+            $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
+            $DonneesInjectees['lesCommandes'] = $this->ModeleProduit->RetournerCommande();
+            $noCommande = $this->input->post('txtNoCommande');
+            $DonneesInjectees['noCommande'] = $noCommande;
+            $DonneesInjectees['lesLignes'] = $this->ModeleProduit->RetournerLigne($noCommande);
+            $this->load->view('Administrateur/VoirCommandesNonTraitees',$DonneesInjectees);
+            $this->load->view('template/baspage');
+        }
 
         public function AjouterUnProduit()
             {                  

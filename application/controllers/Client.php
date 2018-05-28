@@ -125,10 +125,12 @@ class Client extends CI_Controller
                     foreach ($this->cart->contents() as $Produit):
                         $DonneesInserer = array('NOCOMMANDE' => $noCommande['MAX(NOCOMMANDE)'], 'NOPRODUIT' => $Produit['id'], 'QUANTITECOMMANDEE' => $Produit['qty']);
                         $this->ModeleProduit->AjouterLigne($DonneesInserer);
+                        $NoProduit = $Produit['id'];
+                        
                     endforeach;
                 $this->cart->destroy();
                 $this->load->helper('url');
-                redirect('Visiteur/AfficherTousLesArticles');
+                //redirect('Visiteur/AfficherTousLesArticles');
             }
     }
 ?>

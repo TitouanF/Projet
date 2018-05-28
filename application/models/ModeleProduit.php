@@ -11,7 +11,7 @@ class ModeleProduit extends CI_Model
       {
         if ($pNoProduit === FALSE) // pas de n° d'article en paramètre
           { 
-              $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
+              $requete = $this->db->query('select * from produit where DISPONIBLE = 1 and QUANTITEENSTOCK > 0 ');
               return $requete->result_array();
           }
         $requete = $this->db->get_where('produit', array('NOPRODUIT' => $pNoProduit));
@@ -22,7 +22,7 @@ class ModeleProduit extends CI_Model
     public function retournerArticlesLimite($nombreDeLignesARetourner, $noPremiereLigneARetourner)
       {// Nota Bene : surcharge non supportée par PHP
         $this->db->limit($nombreDeLignesARetourner, $noPremiereLigneARetourner);
-        $requete = $this->db->get_where('produit',array('DISPONIBLE' =>1));
+        $requete = $this->db->query('select * from produit where DISPONIBLE = 1 and QUANTITEENSTOCK > 0 ');
         if ($requete->num_rows() > 0) 
           { // si nombre de lignes > 0
             return $requete->result_array();
@@ -41,8 +41,8 @@ class ModeleProduit extends CI_Model
       {
         if ($NoCategorie === FALSE) // pas de n° d'article en paramètre
           { 
-              $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
-              return $requete->result_array();
+            $requete = $this->db->query('select * from produit where DISPONIBLE = 1 and QUANTITEENSTOCK > 0 ');
+            return $requete->result_array();
           }
         $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1,'NOCATEGORIE'=>$NoCategorie));
         return $requete->result_array();
@@ -53,7 +53,7 @@ class ModeleProduit extends CI_Model
       {
         if ($Date === FALSE) // pas de n° d'article en paramètre
           { 
-            $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
+            $requete = $this->db->query('select * from produit where DISPONIBLE = 1 and QUANTITEENSTOCK > 0 ');
             return $requete->result_array();
           }
         $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1,'DATEAJOUT'=>$Date));
@@ -65,7 +65,7 @@ class ModeleProduit extends CI_Model
       {
         if ($recherche === FALSE) // pas de n° d'article en paramètre
           { 
-            $requete = $this->db->get_where('produit', array('DISPONIBLE' => 1));
+            $requete = $this->db->query('select * from produit where DISPONIBLE = 1 and QUANTITEENSTOCK > 0 ');
             return $requete->result_array();
           }
         $this->db->select('*');
@@ -145,10 +145,17 @@ class ModeleProduit extends CI_Model
         $requete = $this->db->query('select MAX(NOCOMMANDE) from commande');
         return $requete->row_array();
       }
-    public function changerQuantiteEnStock($pNoProduit,$pQuantitee)
+    public function changerQuantiteEnStock($pDonneesAEnlever)
     {
-      $requete = $this->db->query('UPDATE produit SET QUANTITEENSTOCK = QUANTITEENSTOCK - '.$pQuantitee.' where NOPRODUIT ='.$pNoProduit);
-      $this->db->update($requete);
+      $this->db->set($pDonneesAEnlever);
+      $this->db->where('NOPRODUIT',$pDonneesAEnlever['NOPRODUIT']);
+      $this->db->update('produit');
+    }
+
+    public function RecupererQuantitee($pDonneesAModifier)
+    {
+      $requete = $this->db->query('select QUANTITEENSTOCK from produit where NOPRODUIT = '.$pDonneesAModifier['NOPRODUIT']);
+      return $requete->result_array();
     }
 
  }
