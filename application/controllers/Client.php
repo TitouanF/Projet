@@ -129,7 +129,7 @@ class Client extends CI_Controller
                         
                     endforeach;
                 $this->cart->destroy();
-                $this->load->helper('url');
+                $this->load->helper('url'); 
                 //redirect('Visiteur/AfficherTousLesArticles');
             }
     }
