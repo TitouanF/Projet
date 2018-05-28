@@ -158,5 +158,19 @@ class ModeleProduit extends CI_Model
       return $requete->result_array();
     }
 
+    public function modifierQteProduit($pDonneesAModifier = FALSE, $pNoProduit = FALSE,$quantiteEnStock)
+    {
+      $this->db->set('QUANTITEENSTOCK',$quantiteEnStock - $pDonneesAModifier);
+      $this->db->where('produit.NOPRODUIT',$pNoProduit);
+      return $this->db->update('produit');
+    }
+
+    public function TraiterCommande($pNoCommande,$pDate)
+    {
+      $this->db->set('TRAITEE',1);
+      $this->db->set('DATETRAITEMENT',$pDate);
+      $this->db->where('commande.NOCOMMANDE',$pNoCommande);
+      return $this->db->update('commande');
+    }
  }
 ?>

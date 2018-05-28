@@ -22,8 +22,7 @@
                 <th> Quantitée commandée </th>
                 <th> Prix </th>
             </tr>
-            <?php 
-            
+            <?php            
                 foreach($lesLignes as $uneLigne)
                 {
                     $prixTTC = $uneLigne['PRIXHT'] + ($uneLigne['PRIXHT'] * $uneLigne['TAUXTVA']/100);
@@ -32,13 +31,12 @@
                     echo '<td>'.$uneLigne['LIBELLE'].'</td>';
                     echo '<td>'.$uneLigne['QUANTITECOMMANDEE'].'</td>';
                     echo '<td>'.$prixTTC.'</td>';
-                }
-                
+                }               
             ?>
             </table>
             <?php
-                echo form_open('Administrateur/AfficherCommandesNonTraitees');
-                echo '<input type="hidden" readonly name="produit_id" value="'.$noCommande.'"/>';
+                echo form_open('Administrateur/ValiderCommande');
+                echo '<input type="hidden" readonly name="txtNoCommande" value="'.$noCommande.'"/>';
                 echo form_submit('boutonVoir','Valider la commande N° '.$noCommande).'<BR>';
                 echo form_close(); 
             ?>

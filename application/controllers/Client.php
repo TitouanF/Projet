@@ -9,6 +9,7 @@ class Client extends CI_Controller
                 $this->load->library("pagination");
                 $this->load->model('ModeleProduit'); // chargement modèle, obligatoire
                 $this->load->model('ModeleUtilisateur');
+                $this->load->library('email');
                     if (!is_null($this->session->identifiant)) : 
                         { 
                             if ($this->session->statut =='client')
@@ -122,14 +123,26 @@ class Client extends CI_Controller
                 );
                 $this->ModeleProduit->AjouterCommande($DonneesAInserer);
                 $noCommande = $this->ModeleProduit->retournerIdDerniereCommande();
-                    foreach ($this->cart->contents() as $Produit):
-                        $DonneesInserer = array('NOCOMMANDE' => $noCommande['MAX(NOCOMMANDE)'], 'NOPRODUIT' => $Produit['id'], 'QUANTITECOMMANDEE' => $Produit['qty']);
+                    foreach ($this->cart->contents() as $items):
+                        $DonneesInserer = array('NOCOMMANDE' => $noCommande['MAX(NOCOMMANDE)'], 'NOPRODUIT' => $items['id'], 'QUANTITECOMMANDEE' => $items['qty']);
                         $this->ModeleProduit->AjouterLigne($DonneesInserer);
-                        $NoProduit = $Produit['id'];
-                        
-                    endforeach;
+                        $donneesAModifier = $items['qty'];
+                        $noProduit = $DonneesInserer['NOPRODUIT'];
+                        $ProduitRetourne = $this->ModeleProduit->RetournerProduit($noProduit);
+                        $quantiteEnStock = $ProduitRetourne['QUANTITEENSTOCK'];
+                        $this->ModeleProduit->modifierQteProduit($donneesAModifier,$noProduit,$quantiteEnStock);                       
+                    endforeach;      
+                    echo 'test'    ;  
+                    $this->email->from('codeignititouan@gmail.com', 'Titouan');
+                    $this->email->to('floch.titouan@outlook.com'); 
+                    $this->email->subject('Le sujet de votre mail');
+                    $this->email->message('Le message de votre mail');	
+                    if (!$this->email->send()){
+                        $this->email->print_debugger();
+                    }
                 $this->cart->destroy();
-                $this->load->helper('url'); 
+                $this->load->helper('url');
+               
                 //redirect('Visiteur/AfficherTousLesArticles');
             }
     }
