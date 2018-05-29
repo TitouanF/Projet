@@ -1,5 +1,4 @@
-<?
-
+<?php
 //email.php @ application/config
 defined('BASEPATH') OR exit('No direct script access allowed');
 /*
@@ -22,3 +21,4 @@ $config['validate']     = FALSE;
 $config['priority']     = 3;
 $config['newline']      = "\r\n";
 $config['crlf']         = "\r\n";
+?>

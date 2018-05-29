@@ -1,10 +1,13 @@
 <style>
-    table, th, td 
-        {
-            border: 1px solid black;
-        }
+    caption
+     {
+        font-family: sans-serif;
+    }
 </style>
+<div>
+</br>
 <?php
+
      echo form_open('Administrateur/AfficherCommandesNonTraitees');
      echo '<b> Selectionnez une commande : </b> <select name="txtNoCommande"> ';
         foreach ($lesCommandes as $UneCommande) :
@@ -13,7 +16,6 @@
         endforeach ;
      echo form_submit('boutonVoir','Voir la commande').'<BR>';
      echo form_close();
-     
         if (isset($lesLignes)) : ?>
             <table style="width = 50%" >
             <tr>
@@ -34,6 +36,7 @@
                 }               
             ?>
             </table>
+            </br>
             <?php
                 echo form_open('Administrateur/ValiderCommande');
                 echo '<input type="hidden" readonly name="txtNoCommande" value="'.$noCommande.'"/>';
@@ -41,4 +44,5 @@
                 echo form_close(); 
             ?>
         <?php endif; ?>
+</div>
                

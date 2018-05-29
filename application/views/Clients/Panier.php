@@ -1,14 +1,14 @@
 <style>
-    table, th, td 
-        {
-            border: 1px solid black;
-        }
+    caption {
+        font-family: sans-serif;
+    }
 </style>
 <div>
     <div>
-        <div> 
-            <?php echo $this->cart->total_items();?> articles
+        <div> </br>
+            <?php echo $this->cart->total_items();?> article(s) </br>
             <?php if($this->cart->contents()):?>
+            </br>
                     <table style="width:50%">
                         <tr>
                             <th> Article</th>
@@ -30,14 +30,14 @@
                                 </tr>
                             <?php echo form_close();?>
                         <?php endforeach;?>
-                    </table>              
+                    </table></br>           
                     <div> 
                         <?php echo $this->cart->total();?> Euros </div>                        
                         <div><a href="<?php echo site_url('Client/AjouterCommande');?>"> Valider la commande</a>
                     </div>
                     <div>
                         <a href="<?php echo site_url('Client/ViderPanier');?>"> Vider le panier</a>
-                    </div>
+                    </div> </br>
              <?php else:?>
                     <p> Aucun article dans le panier </p>
             <?php endif;?>

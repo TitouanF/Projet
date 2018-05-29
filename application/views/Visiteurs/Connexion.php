@@ -1,3 +1,10 @@
+<style>
+div
+        {
+            text-align: center;
+        }
+</style>
+<div>
 <h2><?php echo $TitreDeLaPage ?></h2>
     <?php
         echo validation_errors(); // mise en place de la validation
@@ -12,3 +19,4 @@
         echo form_close();
     ?>
 <p><a href="<?php echo site_url('Visiteur/InscriptionDuClient') ?>">Pas encore inscrit ? Inscrivez vous</a></p>
+</div>

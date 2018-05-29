@@ -1,4 +1,4 @@
-<h2><?php echo $TitreDeLaPage ?> </h2>
+<div><h2><?php echo $TitreDeLaPage ?> </h2>
 <?php
     echo form_open('Visiteur/InscriptionDuClient');
     $RegexNom = "^[a-z]+([ \-']?[a-z]+[ \-']?[a-z]+[ \-']?)[a-z]+$";
@@ -32,3 +32,4 @@
     echo form_submit('boutonAjouter','Inscription').'<BR>';
     echo form_close();
 ?>
+</div>

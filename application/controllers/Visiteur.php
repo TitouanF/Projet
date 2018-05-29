@@ -59,18 +59,40 @@ class Visiteur extends CI_Controller {
         $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
         $this->load->view('template/baspage');      
       }
-   
-   
-     public function AfficherProduitRechercher($recherche = null) // lister tous les articles
-      { 
-        $recherche = $this->input->post('txtRechercher');
+      
+      public function AfficherRechercheAvecPagination($recherche)
+      {
+    
+        $config = array();
+        $config["base_url"] = site_url('Visiteur/AfficherRechercheAvecPagination/'.$recherche);
+        $config["total_rows"] = $this->ModeleProduit->nombreDArticles($recherche);  
+        $config["per_page"] = 3;
+        $config["uri_segment"] = 4;            
+        $config['first_link'] = 'Premier'; 
+        $config['last_link'] = 'Dernier';  
+        $config['next_link'] = 'Suivant';    
+        $config['prev_link'] = 'Précédent';
+        $this->pagination->initialize($config);
+        $noPage = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+        $DonneesInjectees['TitreDeLaPage'] = 'Les produits, avec pagination';
+        $DonneesInjectees["lesProduits"] = $this->ModeleProduit->retournerArticlesLimite($config["per_page"], $noPage,$recherche);
+        $DonneesInjectees["liensPagination"] = $this->pagination->create_links();
         $DonneesInjectees['lesDates'] = $this->ModeleProduit->RetournerDate();
         $DonneesInjectees['lesCategories'] = $this->ModeleProduit->RetournerCategorie();
-        $this->load->view('template/entete',$DonneesInjectees);  
-        $DonneesInjectees['lesProduits'] = $this->ModeleProduit->RetournerProduitRechercher($recherche);     
+        $this->load->view('template/entete',$DonneesInjectees);   
         $this->load->view('Visiteurs/VoirTousLesProduits', $DonneesInjectees);
-        $this->load->view('template/baspage');
+        $this->load->view('template/baspage');    
+         
       }
+  
+   
+     public function AfficherProduitRechercher($recherche ) // lister tous les articles
+      { 
+        $recherche = $this->input->post('txtRechercher');
+        redirect('Visiteur/AfficherRechercheAvecPagination/'.$recherche);
+      }
+
+  
      
      
     public function AfficherProduitCategorie($Categorie = null) // lister tous les articles
@@ -187,8 +209,10 @@ class Visiteur extends CI_Controller {
               $this->load->view('Visiteurs/VoirUnProduit', $DonneesInjectees);
               $this->load->view('template/baspage');
             }
-    }
-
+      
+        }
+    
+ 
 
     public function InscriptionDuClient()
     {

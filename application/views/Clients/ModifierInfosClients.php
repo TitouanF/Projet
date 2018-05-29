@@ -1,6 +1,5 @@
-<h2><?php echo $TitreDeLaPage ?> </h2>
+<div><h2><?php echo $TitreDeLaPage ?> </h2>
 <?php
-
     echo form_open('Client/ModifierClient');
     $RegexNom = "^[a-z]+([ \-']?[a-z]+[ \-']?[a-z]+[ \-']?)[a-z]+$";
     echo form_label("Nom : ",'lblNom');
@@ -31,4 +30,4 @@
 
     echo form_submit('boutonModifier','Modifier').'<BR>';
     echo form_close();
-?>
+?></div>

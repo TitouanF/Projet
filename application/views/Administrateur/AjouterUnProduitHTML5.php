@@ -1,11 +1,19 @@
-<h2><?php echo $TitreDeLaPage ?> </h2>
 <style>
     textarea
         {
                 width: 15em;
                 height: 3em;
         }
+    div
+        {
+            text-align: center;
+        }
 </style>
+
+<div>
+<h2><?php echo $TitreDeLaPage ?> </h2>
+
+
     <?php
         $select = 'selected';
         echo form_open('Administrateur/AjouterUnProduit');
@@ -22,30 +30,26 @@
             $select = '';
             endforeach ;
         echo '</select><BR>';
+        $regexLibelle = "^[a-zA-Z_  ]*$";
         echo form_label("Libellé du produit : ",'lblLibelle');
-        echo form_input('txtLibelle','',array('required' => 'Saisir le libellé du produit')).'<BR>';
+        echo form_input('txtLibelle','',array('required' => 'Saisir le libellé du produit','pattern' => $regexLibelle)).'<BR>';
 
 
         echo form_label("Détail du produit : ",'lblDetail');
         echo form_textarea('txtDetail','',array('required' => 'Saisir le Detail du produit')).'<BR>';
 
+        echo '<b> Nouveau prix HT :</b>  <input type="number" value="50" min ="0" name="txtPrixHT" size="1"/> </br>';
 
-        echo form_label("Prix HT du produit : ",'lblPrixHT');
-        echo form_input('txtPrixHT','',array('[0-9]*','required' =>'required','title' => 'Saisir des nombres uniquement')).'<BR>';
-
-
-        echo form_label("Taux TVA du produit : ",'lblTVA');
-        echo form_input('txtTVA','',array('[0-9]*','required' =>'required','title' => 'Saisir des nombres uniquement')).'<BR>';
+        echo '<b> Nouveau prix HT :</b>  <input type="number" value="50" min ="0" name="txtTVA" size="1"/> </br>';
 
 
         echo form_label("Nom du fichier image du produit : ",'lblNomImage');
-        echo form_input('txtNomImage','',array('required' => 'Saisir le nom du fichier image')).'<BR>';
+        echo form_input('txtNomImage','',array('required' => 'Saisir le nom du fichier image','pattern' => '^.+\.(([pP][dD][fF])|([jJ][pP][gG]))$')).'<BR>';
 
         echo form_label("Nom du fichier image du produit pour le carousel : ",'lblNomImageCarousel');
-        echo form_input('txtNomImageCarousel','',array('required' => 'Saisir le nom du fichier image pour le carousel')).'<BR>';
-
-        echo form_label("Quantitée en stock : ",'lblQuantite');
-        echo form_input('txtQuantite','',array('[0-9]*','required' =>'required','title' => 'Saisir des nombres uniquement')).'<BR>';
+        echo form_input('txtNomImageCarousel','',array('required' => 'Saisir le nom du fichier image pour le carousel','pattern' => '^.+\.(([pP][dD][fF])|([jJ][pP][gG]))$')).'<BR>';
+        
+        echo '<b> Nouveau prix HT :</b>  <input type="number" value="50" min ="0" name="txtQuantite" size="1"/> </br>';
 
         echo '<b> Produit disponible ? : </b> <select name="txtDisponible">';
         echo '<option value="1" selected> Oui </option>';
@@ -55,3 +59,4 @@
         echo form_submit('boutonAjouter','Ajouter un article').'<BR>';
         echo form_close();
     ?>
+</div>

@@ -19,21 +19,26 @@ class ModeleProduit extends CI_Model
       }
 
 
-    public function retournerArticlesLimite($nombreDeLignesARetourner, $noPremiereLigneARetourner)
+    public function retournerArticlesLimite($nombreDeLignesARetourner, $noPremiereLigneARetourner,$pRecherche)
       {// Nota Bene : surcharge non supportée par PHP
         $this->db->limit($nombreDeLignesARetourner, $noPremiereLigneARetourner);
-        $requete = $this->db->query('select * from produit where DISPONIBLE = 1 and QUANTITEENSTOCK > 0 ');
-        if ($requete->num_rows() > 0) 
-          { // si nombre de lignes > 0
-            return $requete->result_array();
-          } // fin if
+        $this->db->select('distinct(NOPRODUIT),LIBELLE,DETAIL, PRIXHT, TAUXTVA,NOMIMAGE, QUANTITEENSTOCK,NOMIMAGECAROUSEL');
+        $requete = $this->db->get_where("PRODUIT",'LIBELLE like \'%'.$pRecherche.'%\' and DISPONIBLE = 1 and QUANTITEENSTOCK > 0');
+        if($requete->num_rows() > 0)
+        {
+           foreach ($requete->result() as $ligne)
+            {
+                return $requete->result_array(); 
+            }
+        }
         return false;
       }
 
 
-    public function nombreDArticles() 
+    public function nombreDArticles($pRecherche) 
       { // méthode utilisée pour la pagination
-        return $this->db->count_all("produit");    
+        $requete = $this->db->query('select count(distinct(NOPRODUIT)) from produit where LIBELLE like \'%'.$pRecherche.'%\' and DISPONIBLE = 1 and QUANTITEENSTOCK > 0');
+        return implode($requete->row_array());
       }
 
 

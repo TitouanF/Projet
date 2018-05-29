@@ -135,8 +135,8 @@ class Client extends CI_Controller
                     echo 'test'    ;  
                     $this->email->from('codeignititouan@gmail.com', 'Titouan');
                     $this->email->to('floch.titouan@outlook.com'); 
-                    $this->email->subject('Le sujet de votre mail');
-                    $this->email->message('Le message de votre mail');	
+                    $this->email->subject('Validation panier');
+                    $this->email->message('Panier validé');	
                     if (!$this->email->send()){
                         $this->email->print_debugger();
                     }

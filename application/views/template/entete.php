@@ -8,6 +8,34 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
+    div
+    {
+        text-align: center;
+    }
+    table {
+        border: 1px solid black;
+        margin:auto;
+        border: medium solid #6495ed;
+        border-collapse: collapse;
+        width: 50%;
+          }
+    th {
+        text-align: center;
+        font-family: monospace;
+        border: thin solid #6495ed;
+        width: 50%;
+        padding: 5px;
+        background-color: #D0E3FA;
+        background-image: url(sky.jpg);
+    }
+    td {
+        font-family: sans-serif;
+        border: thin solid #6495ed;
+        width: 50%;
+        padding: 5px;
+        text-align: center;
+        background-color: #ffffff;
+    }
     .navbar 
       {
         margin-bottom: 0;
@@ -64,7 +92,6 @@
         <ul class="nav navbar-nav">
         <li class="active"><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherLaPage#">Accueil <span class="glyphicon glyphicon-home"></a></li>
         <li><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherTousLesArticles#"> Voir tous les produits <span class="glyphicon glyphicon-th-list"></a></li>
-        <li><a href="http://127.0.0.1/projet/index.php/Visiteur/AfficherLesProduitsAvecPagination"> Voir produits avec pagination <span class="glyphicon glyphicon-th-list"></a></li>
           <?php
             if (!is_null($this->session->identifiant)) : 
               {

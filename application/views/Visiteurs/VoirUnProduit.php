@@ -1,3 +1,10 @@
+<style>
+div
+    {
+        text-align: center;
+    }
+</style>
+<div>
 <?php
     $prixttc = $unProduit['PRIXHT'] + ($unProduit['PRIXHT'] * $unProduit['TAUXTVA']/100);
     echo '<div><p>'.img($unProduit['NOMIMAGE']).'<p></div>';
@@ -41,12 +48,12 @@
                             echo '> '.$UneMarque['NOM'].' </option>';
                         endforeach ;
                     echo '</select><BR>';    
-
+                    $regexLibelle = "^[a-zA-Z_  ]*$";
                     echo form_label("Numero produit : ",'lblNoProduit');
                     echo form_input(array('name'=>'txtNoProduit','required' => 'Saisissez un numéro produit','value'=>$unProduit['NOPRODUIT'],'readonly'=>'true')).'<BR>';  
 
                     echo form_label("Libelle produit : ",'lblLibelle');
-                    echo form_input(array('name'=>'txtLibelle','required' => 'Saisissez un libellé','value'=>$unProduit['LIBELLE'])).'<BR>';  
+                    echo form_input(array('name'=>'txtLibelle','required' => 'Saisissez un libellé','value'=>$unProduit['LIBELLE'],'pattern' => $regexLibelle)).'<BR>';  
 
                     echo form_label("Detail produit : ",'lblDetail');
                     echo form_textarea(array('rows' =>2, 'cols'=>50, 'name'=>'txtDetail','required' => 'Saisir le Detail du produit','value'=>$unProduit['DETAIL'])).'<BR>'; 
@@ -55,10 +62,10 @@
                     echo '<b> Nouveau Taux TVA : </b> <input type="number" value="'.$unProduit['TAUXTVA'].'" min ="0" name="nouveauTauxTVA" size="1"/></br>';
                 
                     echo form_label("Nom image : ",'lblNomImage');
-                    echo form_input(array('name'=>'txtNomImage','required' => 'Saisissez le nom de l image','value'=>$unProduit['NOMIMAGE'])).'<BR>';
+                    echo form_input(array('name'=>'txtNomImage','required' => 'Saisissez le nom de l image','value'=>$unProduit['NOMIMAGE'],'pattern' => '^.+\.(([pP][dD][fF])|([jJ][pP][gG]))$')).'<BR>';
 
                     echo form_label("Nom image Carousel : ",'lblNomImageCarousel');
-                    echo form_input(array('name'=>'txtNomImageCarousel','required' => 'Saisissez le nom de l image pour le carousel','value'=>$unProduit['NOMIMAGECAROUSEL'])).'<BR>';
+                    echo form_input(array('name'=>'txtNomImageCarousel','required' => 'Saisissez le nom de l image pour le carousel','value'=>$unProduit['NOMIMAGECAROUSEL'],'pattern' => '^.+\.(([pP][dD][fF])|([jJ][pP][gG]))$')).'<BR>';
                 
                     echo '<b> Produit disponible ? : </b> <select name="txtDisponible">';
                     echo '<option value="1" selected> Oui </option>';
@@ -76,3 +83,4 @@
     endif;
     echo '<p>'.anchor('Visiteur/AfficherTousLesArticles#','Retour à la liste des articles').'</p>';
 ?>
+</div>
