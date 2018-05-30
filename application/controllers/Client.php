@@ -20,7 +20,7 @@ class Client extends CI_Controller
                                 redirect('Visiteur/AfficherLaPage');
                                 }
                         }
-                    else :
+                    else : 
                         {
                             redirect('Visiteur/seConnecter');
                         }

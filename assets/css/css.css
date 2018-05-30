@@ -1,0 +1,68 @@
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    div
+    {
+        text-align: center;
+    }
+    table {
+        border: 1px solid black;
+        margin:auto;
+        border: medium solid #6495ed;
+        border-collapse: collapse;
+        width: 50%;
+          }
+    th {
+        text-align: center;
+        font-family: monospace;
+        border: thin solid #6495ed;
+        width: 50%;
+        padding: 5px;
+        background-color: #D0E3FA;
+        background-image: url(sky.jpg);
+    }
+    td {
+        font-family: sans-serif;
+        border: thin solid #6495ed;
+        width: 50%;
+        padding: 5px;
+        text-align: center;
+        background-color: #ffffff;
+    }
+    .navbar 
+      {
+        margin-bottom: 0;
+        border-radius: 0;
+      }   
+    /* Add a gray background color and some padding to the footer */
+    footer 
+      {
+        background-color: #f2f2f2;
+        padding: 25px;
+      }  
+    .carousel-inner img 
+      {
+        width: 100%; /* Set width to 100% */
+        margin: auto;
+        min-height:200px;
+      }
+    .dropdown:hover 
+      {
+        background-color: #454545;
+        color: white;
+      }
+    .dropdown-menu .sub-menu 
+      {
+        left: 100%;
+        position: absolute;
+        top: -4px;
+        visibility: hidden;
+        margin-top: 0;
+      }
+    .dropdown-menu li:hover .sub-menu 
+      {
+        visibility: visible;
+      }
+    .dropdown:hover .dropdown-menu 
+      {
+        display: block;
+      }
+      

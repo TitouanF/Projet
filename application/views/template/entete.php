@@ -7,8 +7,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    div
+        div
     {
         text-align: center;
     }
@@ -74,8 +73,8 @@
       {
         display: block;
       }
-      }
-  </style>
+      
+    </style>
   </head>
   <body>
   <nav class="navbar navbar-inverse">
